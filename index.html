@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="" />
+
+    <title>Project House</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="https://raw.githubusercontent.com/l-lin/font-awesome-animation/master/dist/font-awesome-animation.min.css">
+    <!--<link rel="stylesheet" href="font-awesome-animation.min.css">-->
+    <link rel="stylesheet" href="house.css">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="container">
+     <div class="page-header row">
+        <h2> Household Energy Keeper <small class="smalltitle">
+              Turn Off the Lights
+            </small>
+        </h2>
+    </div>
+
+<!--MENU-->
+
+<div class="row">
+    <div class="login-section col-md-6">
+        <!--<input type="text" id="user-name">-->
+        <a href="#"><p id="login">Log In</p></a>
+        <p id="lblName"></p>
+        <a href="#"><p id="sign-up">Sign Up</p></a>
+    </div>
+
+    <div id="controlPanelRow" class="col-md-6">
+        <div id="controlPanel"></div>
+    </div>
+</div>
+
+
+<!--SECTION HOUSE-->
+
+
+    <div id="house" class="row">
+        <div id="rooms" class="col-md-12" ></div>
+    </div>
+
+
+</div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+          </div>
+
+          <div class="modal-body">
+              <div class="inputPopup"><label for="firstName">Name</label>
+                  <input type="text" id="firstName"><br/></div>
+              <div class="inputPopup"><label for="lastName">Last Name</label>
+                  <input type="text" id="lastName"><br/></div>
+              <div class="inputPopup"><label for="email">E-mail</label>
+                  <input type="text" id="email"><br/></div>
+              <div class="inputPopup"><label for="password">Choose a Password</label>
+                  <input type="password" id="password-signUp"><br/></div>
+          </div>
+
+          <div class="modal-footer">
+            <button id="sign-up-btn" type="button" class="btn btn-default" data-dismiss="modal">Sign Up</button>
+            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="myModalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Log In</h4>
+          </div>
+
+          <div class="modal-body">
+              <div class="inputPopup"><label for="firstName">Name</label>
+                  <input type="text" id="Name"><br/></div>
+              <!--<div class="inputPopup"><label for="lastName">Last Name</label>-->
+                  <!--<input type="text" id="lastNname"><br/></div>-->
+              <div class="inputPopup"><label for="password">Password</label>
+                  <input type="password" id="password-login"><br/></div>
+          </div>
+
+          <div class="modal-footer">
+            <button id="login-btn" type="button" class="btn btn-default" data-dismiss="modal">Log In</button>
+            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="default-house.js"></script>
+<!-- <script src="myhouse.js"></script> -->
+
+
+<script>
+
+var house;
+var current_user;
+
+
+//    Ada Lungu
+//    users = [{"Ada Lungu":{"password":"blabla", "email":"@"}},
+//             {"Lety Blaj":{"password":"blabla", "email":"@"}}]
+
+
+
+    function signUp() {
+
+        user = {};
+        user_info = {};
+
+
+        var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        var email = $('#email').val();
+        var password = $('#password-signUp').val();
+        var name = firstName + lastName;
+
+        user_info.password = password;
+        user_info.email = email;
+        console.log(user_info);
+
+        user[name] = user_info;
+        console.log(user);
+
+        if (localStorage.users == null) {
+            localStorage.users = JSON.stringify([]);
+        }
+
+        var sUsers = localStorage.users;
+        console.log(sUsers);
+        var oUsers = JSON.parse(sUsers);
+        oUsers.push(user);
+
+        localStorage.users = JSON.stringify(oUsers);
+
+    }
+
+
+    $('#sign-up-btn').click(signUp);
+
+
+
+    //the POP-up menu for sign-up
+    $(document).on("click", "#sign-up", function() {
+        $('#myModal').modal('show');
+    });
+
+
+
+
+    function refreshPage() {
+        if (localStorage.current_user != '') {
+            current_user = localStorage.current_user;
+            $('#login').html("Sign Out");
+            $('#login').attr("id", "sign-out");
+//            $('#sign-up').hide();
+            $('.login-section #lblName').text("Hello, " + current_user);
+            reloadHouse(current_user);
+        }
+        else {
+
+            reloadHouse('default');
+        }
+    }
+
+    refreshPage();
+
+
+
+    function reloadHouse(username) {
+        if (username != 'default'){
+            console.log(username);
+            house = JSON.parse(localStorage.getItem(username));
+            console.log('x');
+        }
+        else {
+            house = defaultHouse;
+        }
+
+//        $(".general_counter #electricity").text(house.general_counters[0].counter);
+
+        $('.button-panel').remove();
+        for (var i = 0; i<house.rooms.length; i++) {
+            // var roomId=house.rooms[i].id;
+            var roomWidth=house.rooms[i].width;
+            var roomHeight=house.rooms[i].height;
+            var roomTop = house.rooms[i].top;
+            var roomLeft = house.rooms[i].left;
+            var roomColor = house.rooms[i].color;
+            var roomName = house.rooms[i].name;
+            var roomImage = house.rooms[i].image;
+            var lightState;
+
+
+            var buttonPanel = '<div class="button-panel" id="room'+ roomName +'"><i class="fa fa-times" id="room'+ roomName +'"></i><h3>'+ roomName+'</h3></div>';
+
+            $("body").append(buttonPanel);
+
+
+            for (var j = 0; j<house.utilities.length; j++) {
+                if (house.utilities[j].name == "lightbulb" && house.utilities[j].room == roomName){
+                    lightState = house.utilities[j].state;
+                }
+            }
+
+           if (lightState == "off") {
+                $("#rooms").append('<div class="room" id="room'+ roomName +'"style="position: absolute; background-image: url('+ roomImage +'); top:' + roomTop+ '; ' +
+                'left:'+ roomLeft +'; width:'+roomWidth+'; height:'+roomHeight+'";><div class="roomColor darkRoom"></div><i class="fa fa-lightbulb-o lightBulb lightBulbOff"' +
+                ' id="'+roomName+'" style="text-align: center";></i></div>');
+            }
+           else{
+                $("#rooms").append('<div class="room" id="room'+ roomName +'"style="position: absolute; background-image: url('+ roomImage +'); top:' + roomTop+ '; ' +
+                'left:'+ roomLeft +'; width:'+roomWidth+'; height:'+roomHeight+'";><div class="roomColor"></div><i class="fa fa-lightbulb-o lightBulb lightBulbOn"' +
+                ' id="'+roomName+'" style="text-align: center";></i></div>');
+            }
+
+        }
+
+
+        //  create buttons for each utility in the slide-menu corresponding to each room
+
+        for (var i=0; i<house.utilities.length; i++) {
+            var roomName = house.utilities[i].room;
+            var utilityName = house.utilities[i].name;
+
+            var buttonUtility;
+            var utility;
+
+            if (house.utilities[i].state == "off") {
+
+                buttonUtility = '<div><button class="btn btn-default btnUtilities" id="'+i+'" data-type="'+house.utilities[i].name+'" dataRoomDiv="room'+roomName+'">'+ utilityName + '</button></div>';
+
+            }else
+
+            {
+                buttonUtility = '<div><button class="btn btn-warning btnUtilities" id="'+i+'" data-type="'+house.utilities[i].name+'" dataRoomDiv="room'+roomName+'">'+ utilityName + '</button></div>';
+            }
+
+
+            if ($(".button-panel#room"+roomName+" #"+house.utilities[i].type).length == 0) {
+
+                $(".button-panel#room"+roomName).append('<div><p>' + house.utilities[i].type + ': <span id="'+ house.utilities[i].type + '">0</span></p></div>');
+            };
+
+            $(".button-panel#room"+roomName).append(buttonUtility);
+
+            
+            // we check up the slide-menu of specific rooms has a child with id "#house.utilities[i].type", which is the id of the span paragraph
+            // it gives us the type, so that we only add the span with consump info one on the page for each type
+
+
+            if (house.utilities[i].state == "off") {
+
+                utility = '<div class="utility" id="' + i + '" style="position: absolute;  width: ' + house.utilities[i].width + '; height: ' + house.utilities[i].height + ';' +
+                        ' left:' + house.utilities[i].left + '; top:' + house.utilities[i].top + '"><i class="fa ' + house.utilities[i].symbol + ' utilityOff" id="' + i + '"></i></div>';
+            }else {
+                utility = '<div class="utility" id="' + i + '" style="position: absolute;  width: ' + house.utilities[i].width + '; height: ' + house.utilities[i].height + ';' +
+                        ' left:' + house.utilities[i].left + '; top:' + house.utilities[i].top + '"><i class="animate fa' + house.utilities[i].symbol + 'utilityOn' +
+                        'd" id="' + i + '"></i></div>';
+
+            }
+
+            $(".room#room"+roomName).append(utility);
+
+            }        
+    };
+
+
+
+    function saveHouse(username){
+        localStorage.setItem(username, JSON.stringify(house));
+    };
+
+
+    // set a counter working for each utility
+    function utilityCounter() {
+        
+        for (var i=0; i<house.utilities.length; i++) {
+
+            if (house.utilities[i].state == "on") {
+                var current_counter = Number(house.utilities[i].counter);
+                house.utilities[i].counter = current_counter + Number(house.utilities[i].consumption);
+                // console.log(house.utilities[i].counter);
+            }
+        }
+
+        saveHouse(localStorage.current_user);
+        displayUtilityCounter();
+        // // console.log(house.general_counter);
+
+    } 
+
+
+    setInterval("utilityCounter()", 1000);
+    
+
+    
+    function displayUtilityCounter() {
+        
+        for (var i=0; i<house.utilities.length; i++) {
+
+            if (house.utilities[i].state == "on") {
+                // extract the value status
+                var counter = house.utilities[i].counter;
+                // introduce in the html file in the span the new value
+                $(".button-panel#room"+ house.utilities[i].room + " #" + house.utilities[i].type).html(counter);
+
+            }
+        }
+    }
+
+
+    function totalConsumpCounters() {
+
+        for (var i=0; i<house.general_counters.length; i++) {
+            var temp_general_counter = Number(house.general_counters[i].counter);
+            for (var j=0; j<house.utilities.length; j++) {
+                if (house.general_counters[i].type == house.utilities[j].type && house.utilities[j].state == "on") {
+
+                    temp_general_counter += Number(house.utilities[j].consumption);
+                    house.general_counters[i].counter = temp_general_counter;
+
+                }
+                $(".general_counter #"+ house.general_counters[i].type).html(temp_general_counter);
+            }
+            // console.log(house.general_counters[i].counter);
+        }
+        saveHouse(localStorage.current_user);
+
+    }
+
+    setInterval("totalConsumpCounters()", 1000);
+
+
+
+    function displayTotalConsumpCounters() {
+
+
+        for (var i=0; i<house.general_counters.length; i++) {
+            $("#controlPanel").append('<div class="general_counter" style="display: inline-block; vertical-align: top; background-color:'
+                    +house.general_counters[i].color+'">'+'<i class="fa '+ house.general_counters[i].symbol+'"></i>'+'<div id="'+ house.general_counters[i].type +'">'
+                    + house.general_counters[i].counter +'</div>');
+            }
+    }
+
+    displayTotalConsumpCounters();
+
+
+    // events triggered when clicked on the utility buttons
+    $(document).on("click",".btnUtilities", function() {
+
+        var btnUtilityId = $(this).attr("id");
+        console.log(btnUtilityId);
+        var buttonNameUtility = $(this).attr('data-type');
+        var roomName = house.utilities[btnUtilityId].room;
+        // get the index/position of the element
+
+        // change the state of the element 
+        for (var i = 0; i < house.utilities.length; i++) {
+            if (i == btnUtilityId) {
+                if (house.utilities[i].state == "on") {
+                    house.utilities[i].state = "off";
+                }
+                else {
+                    house.utilities[i].state = "on";
+                }
+
+            }
+        }
+
+        $(this).toggleClass('btn-warning');
+
+        $("#" + btnUtilityId + ".fa").toggleClass('utilityOn utilityOff');
+
+        if (buttonNameUtility == "lightbulb") {
+            $("#room" + roomName + ' .fa-lightbulb-o').toggleClass('lightBulbOn lightBulbOff');
+            $("#room" + roomName + " .roomColor").toggleClass('darkRoom');
+        }
+
+        saveHouse(localStorage.current_user);
+    });
+
+
+
+//    console.log(house.utilities[0].state);
+//    console.log(house.utilities[0].id);
+
+
+
+
+    // drag/slide the menu on side when click on rooms
+    $(document).on('click', '.room', function(){
+        var roomId = $(this).attr('id');
+        slideRoomPanel(roomId);
+
+    });
+
+    function slideRoomPanel(roomId){
+        $(".button-panel").not('#'+roomId).removeClass('slide-active');
+        $(".button-panel#"+roomId).toggleClass('slide-active');
+    }
+
+    // close slide-panel by clicking on close "x" icon
+    $(document).on("click",".fa.fa-times", function() {
+        // <i class="fa fa-times" id="room'+ roomName +'">
+
+        var closeIconId = $(this).attr('id');
+        $(".button-panel#"+closeIconId).toggleClass('slide-active');
+    });
+
+
+
+
+    $(document).on("click","#login",function() {
+
+        $('#myModalLogin').modal('show');
+
+    });
+
+    $(document).on("click","#login-btn",function() {
+
+        current_user = $("#user-name").val();
+        localStorage.current_user = current_user;
+        if(localStorage.getItem(current_user) != undefined){
+            reloadHouse(current_user);
+        }
+        else {
+            localStorage.setItem(current_user, JSON.stringify(house));
+        }
+
+        $('#login').html("Sign Out");
+        $('#login').attr('id', 'sign-out');
+
+        $('#sign-up').hide();
+        $('.login-section #lblName').text("Hello, " + current_user);
+
+        // var house_current_user = localStorage[current_user];
+        // house = JSON.parse(house_current_user);
+        reloadHouse(current_user);
+    });
+
+
+    $(document).on("click","#sign-out",function() {
+        localStorage.current_user = '';
+        current_user = '';
+        $('#login').show();
+        $('#sign-up').show();
+        $('.login-section #lblName').text('');
+        $('#sign-out').text("log in");
+        $(this).attr('id', 'login');
+        reloadHouse('default');
+
+
+    });
+ 
+
+
+//total consumption
+
+//1. loop through all utilities
+//2. Add up all consumption to get max consumption - 10
+//3. Divide totalOn by max consumption
+
+
+
+</script>
+
+   
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!-- 
+    // calculate set a counter for each utility in each room
+
+    // first, stringify the house object
+    // var sHouse = JSON.stringify(house);
+    // localStorage.house = sHouse;
+
+    // console.log(sHouse.utilities[0].name);
+
+
+    // if (localStorage.electrConsump == undefined) {
+    //     localStorage.electrConsump = 0;
+    // }
+
+    // if (localStorage.waterConsump == undefined) {
+    //     localStorage.waterConsump = 0;
+    // }
+
+    // if (localStorage.gasConsump == undefined) {
+    //     localStorage.gasConsump = 0;
+    // }
+
+
+    // electrConsump = Number(localStorage.electrConsump);
+    // waterConsump = Number(localStorage.waterConsump);
+    // gasConsump = Number(localStorage.gasConsump);
+
+
+
+    // for(i = 0; i<house.utilities.length; i++){
+        
+    //     // create the buttons for each utility from the utilities JSON
+    //     var LightSwitch = '<button class="btn-'+house.utilities[i].name+'" id ='+ i +'>'+house.utilities[i].name+'</button>'
+    //     // add the buttons to the button-panel, on the panel corresp to the room whre utility is 
+    //     $('.button-panel#'+house.utilities[i].room).append(LightSwitch);
+
+
+    // }   
+
+
+
+
+	
+    // function totalConsumCounter() {
+    //     totalConsumCounter = 0;
+    //     for (var i=0; i<house.utilities.length; i++) {
+    //         if (house.utilities[i].state == "on") {
+    //             var counter = Number($(".button-panel#room"+ house.utilities[i].room + " #" + house.utilities[i].type).html());
+    //             totalConsumCounter += counter;
+    //     return totalConsumCounter;
+
+    //         }    
+    //     }
+    // }
+
+    // console.log(totalConsumCounter());
+
+
+ 
+    // the events triggered by clicking on the buttons form the Control Panel
+
+    // $(document).on("click",".btnOnOff", function() {
+    //     // will give me id of pressed button => switchBathroom, switchBedroom
+    //     var pressesButtonId = $(this).attr('id');
+    //     // gives me the value of the attr "data-roomConnectedToSwitch" : lightbulbWorkRoom, lightbulbBedroom
+    //     // the value is correspondent to the id of elem <i > - the lightbulb icon
+    //     var theSwitchId = $(this).attr('data-lightbulbConnectedToSwitch');
+    //     // gives the value of attribute dataRoomDiv => roomKItchen
+    //     // this value - roomKitchen, is the value of id of elem room
+    //     var theLightedRoom = $(this).attr('dataRoomDiv');
+    //     // same for slide panel, the value roomBathroom
+    //     var theSlidePanel = $(this).attr('dataSlidePanel');
+    //     // console.log(theSlidePanel);
+
+    //     // console.log(theSwitchId);
+    //     // make the button change color when pressed on it=> the button with the given id: switchBedroom
+    //     $("#"+pressesButtonId).toggleClass('btn-default btn-warning');
+    //     // turn the lightbulb on/off
+    //     $("#"+theSwitchId).toggleClass('lightBulbOn lightBulbOff');
+    //     // makes the room yellow/darkblue
+    //     $("#"+theLightedRoom).toggleClass('lightRoom darkRoom');
+    //     // slide the menu bar when press on buttons
+    //     $(".button-panel").not('#'+theSlidePanel).removeClass('slide-active');
+    //     $(".button-panel#"+ theSlidePanel).toggleClass('slide-active');
+    // });
+
+    // 
+
+
+
+// Add the Counters on the slide menu
+
+// for (var i=0; i<house.counter.length ; i++) {
+//    $(".button-panel").append('<div><p>'+house.counter[i].type+" consumption: " +house.counter[i].consumption+'</p></div>');
+//    $(".button-panel").append('<div><p>tralala</p></div>');
+//     }
+
+
+
+
+    // set a counter working for each utility + GENERAL COUNTERS calculated inside with
+"general_counter": { "electricity": "0", "water": "0", "gas": "0"} in the house
+
+    function utilityCounter() {
+        
+        for (var i=0; i<house.utilities.length; i++) {
+
+            if (house.utilities[i].state == "on") {
+                var current_counter = Number(house.utilities[i].counter);
+                house.utilities[i].counter = current_counter + Number(house.utilities[i].consumption);
+                // console.log(house.utilities[i].counter);
+
+                // var total_counter = Number(house.general_counter[house.utilities[i].type]);
+                // total_counter += Number(house.utilities[i].consumption);
+                // house.general_counter[house.utilities[i].type] = total_counter;
+            }
+        }
+  
+        displayConsumpTypeCounter();
+        // // console.log(house.general_counter);
+
+    } 
+
+
+    setInterval("utilityCounter()", 1000);
+
+
+// 
+        // if we want to set counters for each indiv utility, then we need a unique identifier for the elements
+        // we can create a new unique identifier in the utilities array, or use the position/index of elements
+
+       // $(".button-panel#room"+roomName).append('<div><p>'+ house.utilities[i].type +' consumption: <span id="'+house.utilities[i].id +'">0</span></p></div>');
+
+
+//
+    // make the slide panel disappear when click on it
+    // $(document).on("click",".button-panel", function() {
+
+    //     var elem_class = $(this).attr('class'); 
+    //     if (elem_class !== "btnUtilities") {
+    //         console.log("this will slide"); 
+    //         $(this).toggleClass('slide-active');
+    //     }
+    // });
+
+
+
+//        $("#myModalLabel").attr('id','myModalLabelLogIn');
+//        $("#sign-up-btn").attr('id','log-in-btn');
+//        $("#password").hide();
+//        $("label#password").hide();
+
+
+ -->
+
+    function totalConsumpCounters() {
+
+        for (var i=0; i<house.general_counters.length; i++) {
+            for (var j=0; j<house.utilities.length; j++) {
+                if (house.general_counters[i].type == house.utilities[i].type) {
+                    house.general_counters[i].counter += Number(house.utilities[i].consumption);
+
+                }
+        }
+    }
+    displayConsumpTypeCounter();
+}
+
+    setInterval("totalConsumpCounters()", 1000);
+    console.log(house.general_counter);
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

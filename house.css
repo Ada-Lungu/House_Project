@@ -1,0 +1,362 @@
+
+
+@import url('http://fonts.googleapis.com/css?family=Raleway');
+@import url('http://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://www.google.com/fonts#UsePlace:use/Collection:Balthazar');
+
+
+body {
+    font-family: "Helvetica Neue",sans-serif,"Open Sans", sans-serif, "Times New Roman", "Conv_AvenirLTStd-Book", Sans-Serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 28px;
+    background-color:#E8E8E8 !important;
+}
+
+.container {
+    background-color: #ffffff;
+}
+
+
+/*NAVBAR*/
+
+/*.titlu_middle {
+    text-align:center;
+    font-size:25px;
+    padding-bottom: 10px;
+    margin-top: 120px;
+}
+
+.titlu_middle a {
+    text-decoration:none;
+    color: dimgrey;
+}*/
+
+
+/* PAGE HEADER*/
+
+.page-header {
+    /*font-size:20px;*/
+    color: white;
+    background-color: #363636;
+    padding-left: 25px;
+    border: 1px solid #363636;
+}
+
+.page-header h2{
+    font-family: "Raleway",sans-serif;"Helvetica Neue",sans-serif, "Open Sans",sans-serif;
+}
+
+.page-header h2 .smalltitle {
+    font-size: 20px;
+    color: #b0b920;
+    font-family: "Open Sans",sans-serif, "Helvetica Neue",sans-serif,"Raleway",sans-serif;
+}
+
+
+/* MENU */
+
+/*.login-section {
+    margin-top: 50px;
+}*/
+
+.login-section #login, .login-section #sign-out, #sign-up{
+    font-family:"Open Sans",sans-serif,"Raleway-SemiBold",sans-serif, "Helvetica Neue",sans-serif, "Conv_AvenirLTStd-Heavy",Sans-Serif;
+    font-weight: bold;
+    font-size:16px;
+    text-transform:uppercase;
+    color:#b0b920;
+    margin: 0 0 40px 30px;
+    display: inline-block;
+    border: 1px solid #b0b920;
+    padding: 5px;
+}
+
+#sign-up {
+    color: slategrey;
+    border: 1px solid slategrey;
+}
+
+.login-section p {
+    font-family:"Open Sans",sans-serif,"Raleway-SemiBold",sans-serif, "Helvetica Neue",sans-serif, "Conv_AvenirLTStd-Heavy",Sans-Serif;
+    text-transform:capitalize;
+    font-weight: bold;
+    color: grey;
+    font-size:16px;
+    display: inline-block;
+}
+
+.login-section a:link {
+    text-decoration:none;
+    color: #707070;
+}
+
+.login-section a:visited{
+    color:#b0b920;
+}
+
+.login-section a:hover {
+    color:lawngreen;
+}
+
+.login-section #user-name {
+    text-align: center;
+    display: inline-block;
+}
+
+
+/*SECTION HOUSE and BUTTONS*/
+
+
+#house{
+    height: 1500px;
+}
+
+#rooms{
+    height: 1500px;
+}
+
+.room {
+    background-repeat: no-repeat;
+}
+
+
+.darkRoom {
+	background-color: blue;
+	opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*#controlPanel {
+	height: 640px;
+	margin-top: 100px;
+}*/
+
+#counterPanel .general-counter {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.btnOnOff {
+	/*/*display: inline-block;*/
+	margin-top: 20px;
+}
+
+.roomName {
+	padding-top: 60px;
+}
+
+i.animate {
+    animation: ada 1s infinite;
+    -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+    animation-iteration-count: infinite;
+}
+
+
+@-webkit-keyframes ada {
+    0% {font-size: 16px;
+    }
+    100% {font-size: 24px;
+    }
+}
+
+@keyframes ada {
+    0% {font-size: 16px;
+    }
+    100% {font-size: 24px;
+    }
+}
+
+
+.lightBulb {
+    position: absolute;
+	font-size: 40px;
+	margin-left: 20px;
+}
+
+.lightBulbOn {
+	text-shadow: 0px 0px 20px red;
+    color: red;
+}
+
+.lightBulbOff {
+	text-shadow: 0px 0px 10px black;
+}
+
+
+#lightbulbID {
+	font-size: 100px;
+}
+
+.utility {
+    font-size: 40px;
+}
+
+.utilityOff {
+    color: black;
+}
+
+.fa-fire.utilityOn {
+    color: #ADBD20;
+}
+
+.fa-bolt.utilityOn {
+    color: #FFB90F;
+}
+
+.fa-tint.utilityOn {
+    color:#20ACCC;
+}
+
+/*button-panel*/
+
+
+.button-panel {
+    position: fixed;
+    height: 100%;
+    width: 400px;
+    background-color: #999999;
+    color: white;
+    top: 0;
+    right: -400px;
+    transition: all .3s;
+    text-transform: capitalize;
+    font-size: 16px;
+}
+
+.button-panel > div {
+    margin-left: 30px;
+}
+
+
+.button-panel h3  {
+    padding-left: 30px;
+    padding-top: 30px;
+    margin-bottom: 90px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #b0b920;
+    background-color: #363636;
+}
+
+.btnUtilities {
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.fa.fa-times {
+    float: right;
+    font-size: 18px;
+    margin: 10px 10px 0 0;
+}
+
+/*GENERAL COUNTERS*/
+
+.general_counter {
+    /*display: inline-block;*/
+    width: 100px;
+    height: 100px;
+    border: 1px solid white;
+    margin-bottom: 30px;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;  
+}
+
+.general_counter .fa {
+    font-size: 40px;
+    margin-top: 10px;
+}
+
+.slide-active {
+    right: 0px;
+}
+
+
+/*POP-UP MENU*/
+
+
+
+.modal-content {
+    background-color:#E8E8E8 ;
+}
+
+.modal-header, .modal-footer {
+    background-color:#b0b920;
+
+}
+
+.modal-body .inputPopup {
+    display: block;
+    width: 200px;
+    margin: 0px auto 20px;
+}
+
+.inputPopup input {
+    width: 230px;
+}
+
+.modal-body label#firstName {
+    margin-top: 40px;
+}
+
+.modal-footer .btn {
+    margin-right: 60px;
+}
+
+.inputPopup label, .inputPopup input {
+    display: inline-block;
+}
+
+
+/*.inputPopup label#firstName {*/
+    /*margin-top: 60px;*/
+/*}*/
+
+.inputPopup #password {
+    margin-bottom: 60px;
+}
+
+
+.inputPopup label {
+    font-weight: normal;
+}
+/*}*/
+
+/*#house_image {*/
+    /*width: 300px;*/
+    /*height: auto;
+    background-position: --203px --111px;
+    width: 843px;
+    height: 591px;
+}
+*/
+
+
+/*USING SPRITES IMAGES*/
+/*.image_bedroom, .image_bathroom {
+    background-image: url('../Apart3.jpeg');
+    background-repeat: no-repeat;
+}
+
+
+.image_bedroom {
+    width: 400px;
+    height: 400px;
+    background-position: 0 0;
+
+}
+
+
+.image_bathroom {
+    width: 100px;
+    height: 100px;
+    background-position: -410px 0;
+
+}*/
+
