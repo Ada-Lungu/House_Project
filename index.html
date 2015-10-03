@@ -22,7 +22,7 @@
 
 <!-- HEADER -->
 
-<div class="container">
+<!--<div class="container">-->
      <div class="page-header row">
         <h2> Household Energy Keeper <small class="smalltitle">
               Turn Off the Lights
@@ -38,6 +38,7 @@
         <a href="#"><p id="login">Log In</p></a>
         <p id="lblName"></p>
         <a href="#"><p id="sign-up">Sign Up</p></a>
+        <a href="#"><p id="auto-demo">Automatic</p></a>
     </div>
 
     <div id="controlPanelRow" class="col-md-6">
@@ -49,9 +50,14 @@
 <!--SECTION HOUSE-->
 
 
-    <div id="house" class="row">
-        <div id="rooms" class="col-md-12" ></div>
+    <div id="house" class="row dayNightCycle">
+        <div id="rooms" class="col-md-12" >
+            <div class="stayLighted"></div>
+        </div>
     </div>
+
+    <!--<input type="text" value="75" class="dial">-->
+
 
 
 </div>
@@ -66,14 +72,12 @@
           </div>
 
           <div class="modal-body">
-              <div class="inputPopup"><label for="firstName">Name</label>
-                  <input type="text" id="firstName"><br/></div>
-              <div class="inputPopup"><label for="lastName">Last Name</label>
-                  <input type="text" id="lastName"><br/></div>
+              <div class="inputPopup"><label for="userNameSignUp">User Name</label>
+                  <input type="text" id="userNameSignUp"><br/></div>
               <div class="inputPopup"><label for="email">E-mail</label>
                   <input type="text" id="email"><br/></div>
-              <div class="inputPopup"><label for="password">Choose a Password</label>
-                  <input type="password" id="password-signUp"><br/></div>
+              <div class="inputPopup"><label for="passwordSignUp">Choose a Password</label>
+                  <input type="password" id="passwordSignUp"><br/></div>
           </div>
 
           <div class="modal-footer">
@@ -91,16 +95,14 @@
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Log In</h4>
+            <h4 class="modal-title" id="myModalLabelLogin">Log In</h4>
           </div>
 
           <div class="modal-body">
-              <div class="inputPopup"><label for="firstName">Name</label>
-                  <input type="text" id="Name"><br/></div>
-              <!--<div class="inputPopup"><label for="lastName">Last Name</label>-->
-                  <!--<input type="text" id="lastNname"><br/></div>-->
-              <div class="inputPopup"><label for="password">Password</label>
-                  <input type="password" id="password-login"><br/></div>
+              <div class="inputPopup"><label for="userNameLogin">User Name</label>
+                  <input type="text" id="userNameLogin"><br/></div>
+              <div class="inputPopup"><label for="passwordLogin">Password</label>
+                  <input type="password" id="passwordLogin"><br/></div>
           </div>
 
           <div class="modal-footer">
@@ -126,45 +128,74 @@
 var house;
 var current_user;
 
+    var timeOfDay = 0;
 
-//    Ada Lungu
-//    users = [{"Ada Lungu":{"password":"blabla", "email":"@"}},
-//             {"Lety Blaj":{"password":"blabla", "email":"@"}}]
+    function dayNightCycle() {
 
+        var stepDarken = 0.08;
+        var darkIntensity = Number($('.dayNightCycle').css('opacity'));
+
+            if (timeOfDay <= 12) {
+                timeOfDay++;
+                console.log(timeOfDay);
+                var opacity = darkIntensity - stepDarken;
+                ($('.dayNightCycle').css('opacity', opacity));
+            }
+
+            if (timeOfDay > 12 && timeOfDay <= 24) {
+                timeOfDay++;
+                console.log(timeOfDay);
+                var opacity = darkIntensity + stepDarken;
+                ($('.dayNightCycle').css('opacity', opacity));
+            }
+
+            if (timeOfDay == 25) {
+                timeOfDay = 0;
+            }
+        }
+
+
+    function automatic_mode() {
+        setInterval('dayNightCycle()', 1000);
+    }
+
+    $('#auto-demo').click(automatic_mode);
+    $('#auto-demo').click( function(){
+
+        var oImg = document.createElement("img");
+        oImg.setAttribute('src', 'https://upload.wikimedia.org/wikipedia/commons/3/37/Clock.gif');
+        oImg.setAttribute('height', '100px');
+        oImg.setAttribute('width', '100px');
+        $('#controlPanelRow').html(oImg);
+
+    });
 
 
     function signUp() {
 
-        user = {};
         user_info = {};
 
-
-        var firstName = $('#firstName').val();
-        var lastName = $('#lastName').val();
+        var userName = $('#userNameSignUp').val();
         var email = $('#email').val();
-        var password = $('#password-signUp').val();
-        var name = firstName + lastName;
+        var password = $('#passwordSignUp').val();
+        var name = userName;
 
         user_info.password = password;
         user_info.email = email;
         console.log(user_info);
 
-        user[name] = user_info;
-        console.log(user);
-
         if (localStorage.users == null) {
-            localStorage.users = JSON.stringify([]);
+            localStorage.users = JSON.stringify({});
         }
 
         var sUsers = localStorage.users;
         console.log(sUsers);
-        var oUsers = JSON.parse(sUsers);
-        oUsers.push(user);
+        var dictUsers = JSON.parse(sUsers);
 
-        localStorage.users = JSON.stringify(oUsers);
+        dictUsers[name] = user_info;
+        localStorage.users = JSON.stringify(dictUsers);
 
     }
-
 
     $('#sign-up-btn').click(signUp);
 
@@ -274,7 +305,7 @@ var current_user;
 
             $(".button-panel#room"+roomName).append(buttonUtility);
 
-            
+
             // we check up the slide-menu of specific rooms has a child with id "#house.utilities[i].type", which is the id of the span paragraph
             // it gives us the type, so that we only add the span with consump info one on the page for each type
 
@@ -292,7 +323,7 @@ var current_user;
 
             $(".room#room"+roomName).append(utility);
 
-            }        
+            }
     };
 
 
@@ -304,7 +335,7 @@ var current_user;
 
     // set a counter working for each utility
     function utilityCounter() {
-        
+
         for (var i=0; i<house.utilities.length; i++) {
 
             if (house.utilities[i].state == "on") {
@@ -318,15 +349,15 @@ var current_user;
         displayUtilityCounter();
         // // console.log(house.general_counter);
 
-    } 
+    }
 
 
     setInterval("utilityCounter()", 1000);
-    
 
-    
+
+
     function displayUtilityCounter() {
-        
+
         for (var i=0; i<house.utilities.length; i++) {
 
             if (house.utilities[i].state == "on") {
@@ -385,7 +416,7 @@ var current_user;
         var roomName = house.utilities[btnUtilityId].room;
         // get the index/position of the element
 
-        // change the state of the element 
+        // change the state of the element
         for (var i = 0; i < house.utilities.length; i++) {
             if (i == btnUtilityId) {
                 if (house.utilities[i].state == "on") {
@@ -400,10 +431,10 @@ var current_user;
 
         $(this).toggleClass('btn-warning');
 
-        $("#" + btnUtilityId + ".fa").toggleClass('utilityOn utilityOff');
+        $("#" + btnUtilityId + ".fa").toggleClass('animate utilityOn utilityOff');
 
         if (buttonNameUtility == "lightbulb") {
-            $("#room" + roomName + ' .fa-lightbulb-o').toggleClass('lightBulbOn lightBulbOff');
+            $("#room" + roomName + ' .fa-lightbulb-o').toggleClass('animate lightBulbOn lightBulbOff');
             $("#room" + roomName + " .roomColor").toggleClass('darkRoom');
         }
 
@@ -442,31 +473,32 @@ var current_user;
 
 
     $(document).on("click","#login",function() {
-
         $('#myModalLogin').modal('show');
 
     });
 
+
     $(document).on("click","#login-btn",function() {
 
-        current_user = $("#user-name").val();
-        localStorage.current_user = current_user;
-        if(localStorage.getItem(current_user) != undefined){
-            reloadHouse(current_user);
+        currentUser = $("#userNameLogin").val();
+        currentUserPassword = $("#passwordLogin").val();
+        dictUsers = JSON.parse(localStorage.users);
+
+        if (currentUser in dictUsers) {
+            console.log("ok user");
+            dictUsersPassword = dictUsers[currentUser]["password"];
+            if (currentUserPassword == dictUsersPassword) {
+                $('#login').html("Sign Out");
+                $('#login').attr('id', 'sign-out');
+                $('#sign-up').hide();
+                $('.login-section #lblName').text("Hello, " + currentUser);
+
+                // var house_current_user = localStorage[current_user];
+                // house = JSON.parse(house_current_user);
+                reloadHouse(current_user);
+            }
         }
-        else {
-            localStorage.setItem(current_user, JSON.stringify(house));
-        }
 
-        $('#login').html("Sign Out");
-        $('#login').attr('id', 'sign-out');
-
-        $('#sign-up').hide();
-        $('.login-section #lblName').text("Hello, " + current_user);
-
-        // var house_current_user = localStorage[current_user];
-        // house = JSON.parse(house_current_user);
-        reloadHouse(current_user);
     });
 
 
@@ -484,6 +516,23 @@ var current_user;
     });
  
 
+    //statistics representation
+//
+//    $(".dial").knob({
+//        'min':-50,
+//        'max':50
+//    });
+//
+//    $('.dial').trigger(
+//        'configure',
+//        {
+//            "min":10,
+//            "max":40,
+//            "fgColor":"#FF0000",
+//            "skin":"tron",
+//            "cursor":true
+//        }
+//    );
 
 //total consumption
 
