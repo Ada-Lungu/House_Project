@@ -36,7 +36,7 @@
 <!-- HEADER -->
 
 <!--<div class="container">-->
-     <div class="page-header row">
+     <div class="page-header">
         <h2> Household Energy Keeper <small class="smalltitle">
               Turn Off the Lights
             </small>
@@ -50,11 +50,11 @@
         <!--<input type="text" id="user-name">-->
         <a href="#"><p id="login">Log In</p></a>
         <p id="lblName"></p>
-        <a href="#"><p id="sign-up">Sign Up</p></a>
         <a href="#"><p id="auto-demo" class="autoDemoOnOff">Start Demo</p></a>
     </div>
 
     <div id="controlPanelRow" class="col-md-6">
+        <a href="#"><p id="sign-up">Sign Up</p></a>
         <div id="controlPanel"></div>
             <!--<div general_counter></div>-->
             <!--<div id="clockImage"></div>-->
@@ -144,13 +144,15 @@
 
 <script>
 
+
 var house;
 var current_user;
 
-    var timeOfDay = 0;
+var timeOfDay = 0;
 
     function dayNightCycle() {
 
+//        if demo == "on";
         var stepDarken = 0.08;
         var darkIntensity = Number($('.dayNightCycle').css('opacity'));
 
@@ -174,53 +176,127 @@ var current_user;
 
         }
 
-
-    var demo = 'off';
     var dayNightCycleId;
 
 function timeSetter(time) {
-    console.log(time);
 
         if (time > 5 && time < 23) {
-            console.log('x');
         $('#controlPanel').append('<div id="'+'clock'+'"></div>');
             $('#clock').text(time +' am');
-            turnLightsOnOff("on");
+            //turnLightsOnOff("on");
         }
         else{
-            turnLightsOnOff("off");
+            //turnLightsOnOff("off");
        $('#controlPanel').append('<div id="'+'clock'+'"></div>');
             $('#clock').text(time +' pm');
         }
     }
 
-
-function turnLightsOnOff(state) {
-
-        for (var i=0; i<house.utilities.length; i++) {
-            roomName = house.utilities[i].room;
-            if (house.utilities[i].name == "lightbulb") {
-                house.utilities[i].state == state;
-                if (state == "off") {
-                    $("#room" + roomName + ' .fa-lightbulb-o').removeClass('animate lightBulbOn');
-                    $('.roomColor').addClass('darkRoom');
-//                  $('#rooms .room').append('<div class="'+'stayLighted'"+'></div>');
-                    $('.stayLighted').fadeIn(300);
-                }else{
-                    $('.stayLighted').fadeOut(300);
-                    $("#room" + roomName + ' .fa-lightbulb-o').addClass('animate lightBulbOn');
-                    $('.roomColor').removeClass('darkRoom');
-                }
-            }
-        }
+function automaticLights() {
+    if (timeOfDay == 6) {
+        turnOnthisLight(13);
     }
 
+    if (timeOfDay == 7) {
+        turnOnthisLight(4);
+    }
+
+    if (timeOfDay == 8) {
+        turnOnthisLight(5);
+    }
+
+    if (timeOfDay == 9) {
+        turnOnthisLight(7);
+    }
+
+     if (timeOfDay == 10) {
+        turnOnthisLight(8);
+    }
+
+    if (timeOfDay == 11) {
+        turnOnthisLight(11);
+    }
+
+    if (timeOfDay == 17) {
+        turnOffthisLight(13);
+    }
+
+    if (timeOfDay == 18) {
+        turnOffthisLight(4);
+    }
+
+    if (timeOfDay == 19) {
+        turnOffthisLight(5);
+    }
+
+    if (timeOfDay == 20) {
+        turnOffthisLight(7);
+    }
+
+     if (timeOfDay == 21) {
+        turnOffthisLight(8);
+    }
+
+    if (timeOfDay == 22) {
+        turnOffthisLight(11);
+    }
+
+}
+
+
+
+function turnOnthisLight(which){
+        house.utilities[which].state = 'on';
+        $("#room"+house.utilities[which].room + " .roomColor").removeClass('darkRoom');
+        $("#room" + house.utilities[which].room + " .fa-lightbulb-o").addClass('animate lightBulbOn');
+}
+
+function turnOffthisLight(which){
+        house.utilities[which].state = 'off';
+        $("#room"+house.utilities[which].room + " .roomColor").addClass('darkRoom');
+        $("#room" + house.utilities[which].room + " .fa-lightbulb-o").removeClass('animate lightBulbOn');
+}
+
+
+
+setInterval("automaticLights()", 1000);
+//function turnLightsOnOff(state) {
+//    for (var i = 0; i < house.utilities.length; i++) {
+//        roomName = house.utilities[i].room;
+//        if (house.utilities[i].name == "lightbulb") {
+//
+//
+//            if (state == "off") {
+//                setTimeout(function () {
+//                            $("#room" + roomName + " .fa-lightbulb-o").removeClass('animate lightBulbOn');
+//                            $("#room" + roomName + " .roomColor").addClass('darkRoom');
+//                            console.log($("#room" + roomName + " .roomColor"));
+//                        }, i * 1000);
+////                  $('#rooms .room').append('<div class="'+'stayLighted'"+'></div>');
+//                        //$('.stayLighted').fadeIn(300)},
+//
+//            }
+//            else {
+//                //$('.stayLighted').fadeOut(300);
+//                setTimeout(function () {
+//                    $("#room" + roomName + ' .fa-lightbulb-o').addClass('animate lightBulbOn');
+//                    $("#room" + roomName + " .roomColor").removeClass('darkRoom')
+//                }, i * 1000);
+//            }
+//        }
+//    }
+//
+//}
+
+    var demo = 'off';
 
     $('#auto-demo').click( function(){
+        console.log(demo);
 
+        $('.dayNightCycle').css('background-color', '#00074C');
         if (demo == "off") {
-            demo = "on";
             dayNightCycleId = setInterval('dayNightCycle()', 1000);
+            demo = "on";
             var oImg = document.createElement("img");
             oImg.setAttribute('src', 'http://im.ezgif.com/tmp/ezgif-269228605.gif');
             oImg.setAttribute('height', '100px');
@@ -230,15 +306,16 @@ function turnLightsOnOff(state) {
             $(this).html('Stop Demo');
         }
         else {
+            demo = "off";
             clearInterval(dayNightCycleId);
+            $('.dayNightCycle').css('background-color', 'white');
             $('#clockImage').html('');
             $('#clock').html('');
             $(this).html('Start Demo');
-
-
         }
-
     });
+
+
 
 
 
@@ -298,6 +375,7 @@ function turnLightsOnOff(state) {
     }
 
     refreshPage();
+
 
 
 
@@ -410,6 +488,15 @@ function turnLightsOnOff(state) {
     };
 
 
+    for (var i = 0; i < house.utilities.length; i++) {
+        if (house.utilities[i].name == "lightbulb") {
+            console.log(i);
+        }
+    }
+
+
+
+
 
     function saveHouse(username){
         localStorage.setItem(username, JSON.stringify(house));
@@ -463,7 +550,6 @@ function turnLightsOnOff(state) {
 
                     temp_general_counter += Number(house.utilities[j].consumption);
                     house.general_counters[i].counter = temp_general_counter;
-                    $('.dial').val(temp_general_counter);
 
 
                 }
@@ -613,37 +699,48 @@ function turnLightsOnOff(state) {
             }
 
         }
+
         var statisticsPercentage = Math.floor((currentConsump/totalConsump)*100);
-        console.log("total:" + totalConsump);
-        console.log(currentConsump);
-        console.log(currentConsump);
-        console.log("%" + statisticsPercentage);
+        //console.log(statisticsPercentage);
+        //console.log("total:" + totalConsump);
+        //console.log("%" + statisticsPercentage);
 
 
-        $('#'+type+'-dial .dial').val(statisticsPercentage);
+        $('#'+type+'-dial .dial').val(statisticsPercentage).trigger('change');
 
     }
 
-    setInterval(function(){updateStatistics('electricity');}, 1000);
-    setInterval(function(){updateStatistics('water');}, 1000);
-    setInterval(function(){updateStatistics('gas');}, 1000);
- 
 
+setInterval(function(){updateStatistics('electricity');}, 1000);
+setInterval(function(){updateStatistics('water');}, 1000);
+setInterval(function(){updateStatistics('gas');}, 1000);
+ 
 
     function displayStatistics() {
 
-        for (i = 0; i < 4; i++) {
-            $(".dial").knob({
+//        for (var i=0; i< house.general_counters[i]; i++) {
+//            $('#statistics').append('<div id="' + house.general_counters[i].type + '-dial"' + '><input type="text" value="75" class="dial" data-width="85px"></div>');
+
+
+        for (var i=0; i< house.general_counters.length; i++) {
+            type = house.general_counters[i].type;
+            color = house.general_counters[i].color;
+            console.log(color);
+
+            $('#'+type+'-dial .dial').knob({
                 'min': 0,
-                'max': 100
+                'max': 100,
+                "fgColor": color
             });
 
-            $('.dial').trigger(
+            $('#'+type+'-dial').trigger(
                     'configure',
                     {
                         "min": 0,
                         "max": 100,
-                        "skin": "tron"
+                        "skin": "tron",
+                        "fgColor": color,
+                        "readOnly": true
                     }
             );
 
@@ -653,12 +750,6 @@ function turnLightsOnOff(state) {
     }
 
     displayStatistics();
-//total consumption
-
-//1. loop through all utilities
-//2. Add up all consumption to get max consumption - 10
-//3. Divide totalOn by max consumption
-
 
 
 </script>
