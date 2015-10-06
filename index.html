@@ -21,16 +21,16 @@
 
 <body>
 
-    <div class="dayNightCycle"></div>
+<div class="dayNightCycle"></div>
 
     <div id="electricity-dial">
-        <input type="text" value="" class="dial">
+        <input type="text" value="" class="dial" data-width="75px">
     </div>
     <div id="water-dial">
-        <input type="text" value="75" class="dial">
+        <input type="text" value="75" class="dial" data-width="75px">
     </div>
     <div id="gas-dial">
-        <input type="text" value="75" class="dial">
+        <input type="text" value="75" class="dial" data-width="75px">
     </div>
 
 <!-- HEADER -->
@@ -45,7 +45,7 @@
 
 <!--MENU-->
 
-<div class="row">
+<!--<div class="row">-->
     <div class="login-section col-md-6">
         <!--<input type="text" id="user-name">-->
         <a href="#"><p id="login">Log In</p></a>
@@ -61,7 +61,7 @@
             <!--<div id="clock"></div>-->
 
     </div>
-</div>
+<!--</div>-->
 
 
 <!--SECTION HOUSE-->
@@ -71,14 +71,28 @@
 
         <div id="rooms" class="col-md-12" >
             <!--<div class="stayLighted"></div>-->
+
         </div>
+        <div class="tree" id="green-car"><img src="img/green_car.png"></div>
+        <div class="tree" id="tree-artistic"><img src="img/tree.png"></div>
+        <div class="tree" id="tree1"><img src="img/tree.png"></div>
+        <div class="tree" id="tree2"><img src="img/tree-artistic.png"></div>
+        <div class="tree" id="tree3"><img src="img/tree.png"></div>
+        <div class="tree" id="tree4"><img src="img/tree-artistic.png"></div>
+        <div class="tree" id="tree5"><img src="img/tree.png"></div>
+        <div class="tree" id="tree6"><img src="img/tree.png"></div>
+
     </div>
 
 
 
+    <div id="roadImage">
+        <div id="tesla"><img src="img/tesla.png"></div>
+
+    </div>
 
 
-<!--</div>-->
+</div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
@@ -132,6 +146,7 @@
     </div>
 
 
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -143,6 +158,20 @@
 
 
 <script>
+
+$('#green-car').draggable();
+$('#tesla').draggable();
+$('.tree').draggable();
+
+
+$(document).on("click", "#tesla", function(){
+    $(this).animate({right: '200px'}, "slow");
+});
+
+//
+//$(document).on("click", ".tesla", function(){
+//    $(this).toggleClass('driveaway');
+//})
 
 
 var house;
@@ -295,10 +324,10 @@ setInterval("automaticLights()", 1000);
 
         $('.dayNightCycle').css('background-color', '#00074C');
         if (demo == "off") {
-            dayNightCycleId = setInterval('dayNightCycle()', 1000);
+            dayNightCycleId = setInterval('dayNightCycle()', 2000);
             demo = "on";
             var oImg = document.createElement("img");
-            oImg.setAttribute('src', 'http://im.ezgif.com/tmp/ezgif-269228605.gif');
+            oImg.setAttribute('src', 'img/clock.gif');
             oImg.setAttribute('height', '100px');
             oImg.setAttribute('width', '100px');
             $('#controlPanel').append('<div id="' + 'clockImage' + '"></div>');
@@ -750,6 +779,8 @@ setInterval(function(){updateStatistics('gas');}, 1000);
     }
 
     displayStatistics();
+
+
 
 
 </script>
