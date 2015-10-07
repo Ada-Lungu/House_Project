@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="" />
 
     <title>Project House</title>
-
-    <!-- Bootstrap -->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
@@ -23,6 +21,52 @@
 
 <div class="dayNightCycle"></div>
 
+<!-- HEADER -->
+
+     <div class="page-header">
+        <h2> Household Energy Keeper <small class="smalltitle">
+              Turn Off the Lights
+            </small>
+        </h2>
+    </div>
+
+
+<!--MENU-->
+
+    <div class="login-section col-md-6">
+        <a href="#"><p id="login">Log In</p></a>
+        <p id="lblName"></p>
+        <a href="#"><p id="auto-demo" class="autoDemoOnOff">Start Demo</p></a>
+    </div>
+
+    <div id="controlPanelRow" class="col-md-6">
+        <a href="#"><p id="sign-up">Sign Up</p></a>
+        <div id="controlPanel"></div>
+    </div>
+
+
+<!--SECTION HOUSE-->
+
+    <div id="house" class="row">
+
+        <div id="rooms" class="col-md-12" ></div>
+        <div id="green-car1"><img src="img/green_car2.png"></div>
+        <div class="tree" id="tree-artistic"><img src="img/tree.png"></div>
+        <div class="tree" id="tree1"><img src="img/tree.png"></div>
+        <div class="tree" id="tree2"><img src="img/tree-artistic.png"></div>
+        <div class="tree" id="tree3"><img src="img/tree.png"></div>
+        <div class="tree" id="tree4"><img src="img/tree-artistic.png"></div>
+        <div class="tree" id="tree5"><img src="img/tree.png"></div>
+        <div class="tree" id="tree6"><img src="img/tree.png"></div>
+        <div id="roadImage">
+        <!--<div id="tesla"><img src="img/tesla.png"></div>-->
+            <div id="green-car2" class="playSound"><img src="img/green_car.png"></div>
+        </div>
+
+    </div>
+
+
+<!--STATISTICS KNOBS-->
     <div id="electricity-dial">
         <input type="text" value="" class="dial" data-width="75px">
     </div>
@@ -33,67 +77,23 @@
         <input type="text" value="75" class="dial" data-width="75px">
     </div>
 
-<!-- HEADER -->
 
-<!--<div class="container">-->
-     <div class="page-header">
-        <h2> Household Energy Keeper <small class="smalltitle">
-              Turn Off the Lights
-            </small>
-        </h2>
-    </div>
+<!--AUDIO TAGS-->
 
-<!--MENU-->
+    <audio id="green-car2-sound" class="mySound">
+       <source src="sounds/car-accelerate.wav" type="audio/mpeg">
+    </audio>
 
-<!--<div class="row">-->
-    <div class="login-section col-md-6">
-        <!--<input type="text" id="user-name">-->
-        <a href="#"><p id="login">Log In</p></a>
-        <p id="lblName"></p>
-        <a href="#"><p id="auto-demo" class="autoDemoOnOff">Start Demo</p></a>
-    </div>
+    <audio id="soundTv" class="mySound">
+       <source src="" type="audio/mpeg">
+    </audio>
 
-    <div id="controlPanelRow" class="col-md-6">
-        <a href="#"><p id="sign-up">Sign Up</p></a>
-        <div id="controlPanel"></div>
-            <!--<div general_counter></div>-->
-            <!--<div id="clockImage"></div>-->
-            <!--<div id="clock"></div>-->
-
-    </div>
-<!--</div>-->
+    <audio id="soundShower" class="mySound">
+       <source src="" type="audio/mpeg">
+    </audio>
 
 
-<!--SECTION HOUSE-->
-
-
-    <div id="house" class="row">
-
-        <div id="rooms" class="col-md-12" >
-            <!--<div class="stayLighted"></div>-->
-
-        </div>
-        <div class="tree" id="green-car"><img src="img/green_car.png"></div>
-        <div class="tree" id="tree-artistic"><img src="img/tree.png"></div>
-        <div class="tree" id="tree1"><img src="img/tree.png"></div>
-        <div class="tree" id="tree2"><img src="img/tree-artistic.png"></div>
-        <div class="tree" id="tree3"><img src="img/tree.png"></div>
-        <div class="tree" id="tree4"><img src="img/tree-artistic.png"></div>
-        <div class="tree" id="tree5"><img src="img/tree.png"></div>
-        <div class="tree" id="tree6"><img src="img/tree.png"></div>
-
-    </div>
-
-
-
-    <div id="roadImage">
-        <div id="tesla"><img src="img/tesla.png"></div>
-
-    </div>
-
-
-</div>
-
+<!--POP UP LOGIN/SIGN-IN FORMS -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -145,6 +145,7 @@
       </div>
     </div>
 
+</div>
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -154,201 +155,23 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="default-house.js"></script>
 <script src="knob.js"></script>
-<!-- <script src="myhouse.js"></script> -->
 
 
 <script>
 
-$('#green-car').draggable();
-$('#tesla').draggable();
-$('.tree').draggable();
 
-
-$(document).on("click", "#tesla", function(){
-    $(this).animate({right: '200px'}, "slow");
-});
-
-//
-//$(document).on("click", ".tesla", function(){
-//    $(this).toggleClass('driveaway');
-//})
-
-
-var house;
-var current_user;
-
-var timeOfDay = 0;
-
-    function dayNightCycle() {
-
-//        if demo == "on";
-        var stepDarken = 0.08;
-        var darkIntensity = Number($('.dayNightCycle').css('opacity'));
-
-            if (timeOfDay <= 12) {
-                timeOfDay++;
-                var opacity = darkIntensity - stepDarken;
-                ($('.dayNightCycle').css('opacity', opacity));
-            }
-
-            if (timeOfDay > 12 && timeOfDay <= 24) {
-                timeOfDay++;
-                var opacity = darkIntensity + stepDarken;
-                ($('.dayNightCycle').css('opacity', opacity));
-            }
-
-            if (timeOfDay == 25) {
-                timeOfDay = 0;
-            }
-
-        timeSetter(timeOfDay);
-
-        }
-
-    var dayNightCycleId;
-
-function timeSetter(time) {
-
-        if (time > 5 && time < 23) {
-        $('#controlPanel').append('<div id="'+'clock'+'"></div>');
-            $('#clock').text(time +' am');
-            //turnLightsOnOff("on");
-        }
-        else{
-            //turnLightsOnOff("off");
-       $('#controlPanel').append('<div id="'+'clock'+'"></div>');
-            $('#clock').text(time +' pm');
-        }
-    }
-
-function automaticLights() {
-    if (timeOfDay == 6) {
-        turnOnthisLight(13);
-    }
-
-    if (timeOfDay == 7) {
-        turnOnthisLight(4);
-    }
-
-    if (timeOfDay == 8) {
-        turnOnthisLight(5);
-    }
-
-    if (timeOfDay == 9) {
-        turnOnthisLight(7);
-    }
-
-     if (timeOfDay == 10) {
-        turnOnthisLight(8);
-    }
-
-    if (timeOfDay == 11) {
-        turnOnthisLight(11);
-    }
-
-    if (timeOfDay == 17) {
-        turnOffthisLight(13);
-    }
-
-    if (timeOfDay == 18) {
-        turnOffthisLight(4);
-    }
-
-    if (timeOfDay == 19) {
-        turnOffthisLight(5);
-    }
-
-    if (timeOfDay == 20) {
-        turnOffthisLight(7);
-    }
-
-     if (timeOfDay == 21) {
-        turnOffthisLight(8);
-    }
-
-    if (timeOfDay == 22) {
-        turnOffthisLight(11);
-    }
-
-}
-
-
-
-function turnOnthisLight(which){
-        house.utilities[which].state = 'on';
-        $("#room"+house.utilities[which].room + " .roomColor").removeClass('darkRoom');
-        $("#room" + house.utilities[which].room + " .fa-lightbulb-o").addClass('animate lightBulbOn');
-}
-
-function turnOffthisLight(which){
-        house.utilities[which].state = 'off';
-        $("#room"+house.utilities[which].room + " .roomColor").addClass('darkRoom');
-        $("#room" + house.utilities[which].room + " .fa-lightbulb-o").removeClass('animate lightBulbOn');
-}
-
-
-
-setInterval("automaticLights()", 1000);
-//function turnLightsOnOff(state) {
-//    for (var i = 0; i < house.utilities.length; i++) {
-//        roomName = house.utilities[i].room;
-//        if (house.utilities[i].name == "lightbulb") {
-//
-//
-//            if (state == "off") {
-//                setTimeout(function () {
-//                            $("#room" + roomName + " .fa-lightbulb-o").removeClass('animate lightBulbOn');
-//                            $("#room" + roomName + " .roomColor").addClass('darkRoom');
-//                            console.log($("#room" + roomName + " .roomColor"));
-//                        }, i * 1000);
-////                  $('#rooms .room').append('<div class="'+'stayLighted'"+'></div>');
-//                        //$('.stayLighted').fadeIn(300)},
-//
-//            }
-//            else {
-//                //$('.stayLighted').fadeOut(300);
-//                setTimeout(function () {
-//                    $("#room" + roomName + ' .fa-lightbulb-o').addClass('animate lightBulbOn');
-//                    $("#room" + roomName + " .roomColor").removeClass('darkRoom')
-//                }, i * 1000);
-//            }
-//        }
+//    for (i=0; i<3; i++) {
+//        $('.page-header').append('<p class="numbers">'+ i +'</p>');
 //    }
 //
-//}
-
-    var demo = 'off';
-
-    $('#auto-demo').click( function(){
-        console.log(demo);
-
-        $('.dayNightCycle').css('background-color', '#00074C');
-        if (demo == "off") {
-            dayNightCycleId = setInterval('dayNightCycle()', 2000);
-            demo = "on";
-            var oImg = document.createElement("img");
-            oImg.setAttribute('src', 'img/clock.gif');
-            oImg.setAttribute('height', '100px');
-            oImg.setAttribute('width', '100px');
-            $('#controlPanel').append('<div id="' + 'clockImage' + '"></div>');
-            $('#clockImage').html(oImg);
-            $(this).html('Stop Demo');
-        }
-        else {
-            demo = "off";
-            clearInterval(dayNightCycleId);
-            $('.dayNightCycle').css('background-color', 'white');
-            $('#clockImage').html('');
-            $('#clock').html('');
-            $(this).html('Start Demo');
-        }
-    });
+//    $(document).on("click", ".numbers", function(){
+//        alert("Ada");
+//    });
 
 
-
-
-
-
+    var house;
+    var current_user;
+    var timeOfDay = 0;
 
     function signUp() {
 
@@ -379,13 +202,10 @@ setInterval("automaticLights()", 1000);
     $('#sign-up-btn').click(signUp);
 
 
-
-    //the POP-up menu for sign-up
+    //THE POP-UP MENU FOR SIGN-UP
     $(document).on("click", "#sign-up", function() {
         $('#myModal').modal('show');
     });
-
-
 
 
     function refreshPage() {
@@ -395,6 +215,7 @@ setInterval("automaticLights()", 1000);
             $('#login').attr("id", "sign-out");
 //            $('#sign-up').hide();
             $('.login-section #lblName').text("Hello, " + current_user);
+
             reloadHouse(current_user);
         }
         else {
@@ -406,19 +227,15 @@ setInterval("automaticLights()", 1000);
     refreshPage();
 
 
-
-
     function reloadHouse(username) {
         if (username != 'default'){
-            console.log(username);
+//            console.log(username);
             house = JSON.parse(localStorage.getItem(username));
-            console.log('x');
+//            console.log('x');
         }
         else {
             house = defaultHouse;
         }
-
-//        $(".general_counter #electricity").text(house.general_counters[0].counter);
 
         $('.button-panel').remove();
         for (var i = 0; i<house.rooms.length; i++) {
@@ -457,15 +274,12 @@ setInterval("automaticLights()", 1000);
 
         }
 
-
         //  create buttons for each utility in the slide-menu corresponding to each room
-
         for (var i=0; i<house.utilities.length; i++) {
             var roomName = house.utilities[i].room;
             var utilityName = house.utilities[i].name;
 
             var buttonUtility;
-            var buttonAdjustHeat;
             var utility;
 
 
@@ -473,20 +287,10 @@ setInterval("automaticLights()", 1000);
 
                 buttonUtility = '<div><button class="btn btn-default btnUtilities" id="'+i+'" data-type="'+house.utilities[i].name+'" dataRoomDiv="room'+roomName+'">'+ utilityName + '</button></div>';
 
-            }else
-
-            {
+            }else{
                 buttonUtility = '<div><button class="btn btn-warning btnUtilities" id="'+i+'" data-type="'+house.utilities[i].name+'" dataRoomDiv="room'+roomName+'">'+ utilityName + '</button></div>';
             }
 
-
-            if (house.utilities[i].type == "heating-system") {
-
-                buttonAdjustHeat = '<div><button class="' + 'btn btn-default' + '">Lala</button></div>';
-                $(".button-panel#room"+roomName+ " .btnUtilities#"+i).append(buttonAdjustHeat);
-//                $(".button-panel#room"+roomName+ " .btnUtilities#"+i).html('Lala');
-
-            }
 
             if ($(".button-panel#room"+roomName+" #"+house.utilities[i].type).length == 0) {
 
@@ -498,8 +302,6 @@ setInterval("automaticLights()", 1000);
 
             // we check up the slide-menu of specific rooms has a child with id "#house.utilities[i].type", which is the id of the span paragraph
             // it gives us the type, so that we only add the span with consump info one on the page for each type
-
-
             if (house.utilities[i].state == "off") {
 
                 utility = '<div class="utility" id="' + i + '" style="position: absolute;  width: ' + house.utilities[i].width + '; height: ' + house.utilities[i].height + ';' +
@@ -508,23 +310,13 @@ setInterval("automaticLights()", 1000);
                 utility = '<div class="utility" id="' + i + '" style="position: absolute;  width: ' + house.utilities[i].width + '; height: ' + house.utilities[i].height + ';' +
                         ' left:' + house.utilities[i].left + '; top:' + house.utilities[i].top + '"><i class="animate fa' + house.utilities[i].symbol + 'utilityOn' +
                         'd" id="' + i + '"></i></div>';
-
             }
 
             $(".room#room"+roomName).append(utility);
 
             }
+//        saveHouse(localStorage.current_user);
     };
-
-
-    for (var i = 0; i < house.utilities.length; i++) {
-        if (house.utilities[i].name == "lightbulb") {
-            console.log(i);
-        }
-    }
-
-
-
 
 
     function saveHouse(username){
@@ -540,16 +332,13 @@ setInterval("automaticLights()", 1000);
             if (house.utilities[i].state == "on") {
                 var current_counter = Number(house.utilities[i].counter);
                 house.utilities[i].counter = current_counter + Number(house.utilities[i].consumption);
-                // console.log(house.utilities[i].counter);
             }
         }
 
-        saveHouse(localStorage.current_user);
         displayUtilityCounter();
-        // // console.log(house.general_counter);
+        saveHouse(localStorage.current_user);
 
     }
-
 
     setInterval("utilityCounter()", 1000);
 
@@ -579,16 +368,13 @@ setInterval("automaticLights()", 1000);
 
                     temp_general_counter += Number(house.utilities[j].consumption);
                     house.general_counters[i].counter = temp_general_counter;
-
-
                 }
-                $(".general_counter #"+ house.general_counters[i].type).html(temp_general_counter);
 
+                $(".general_counter #"+ house.general_counters[i].type).html(temp_general_counter);
             }
             // console.log(house.general_counters[i].counter);
         }
         saveHouse(localStorage.current_user);
-
     }
 
     setInterval("totalConsumpCounters()", 1000);
@@ -596,7 +382,6 @@ setInterval("automaticLights()", 1000);
 
 
     function displayTotalConsumpCounters() {
-
 
         for (var i=0; i<house.general_counters.length; i++) {
             $("#controlPanel").append('<div class="general_counter" style="display: inline-block; vertical-align: top; background-color:'
@@ -608,7 +393,7 @@ setInterval("automaticLights()", 1000);
     displayTotalConsumpCounters();
 
 
-    // events triggered when clicked on the utility buttons
+    // EVENTS TRIGGERED WHEN CLICKED ON UTILITY BUTTONS
     $(document).on("click",".btnUtilities", function() {
 
         var btnUtilityId = $(this).attr("id");
@@ -644,12 +429,7 @@ setInterval("automaticLights()", 1000);
 
 
 
-//    console.log(house.utilities[0].state);
-//    console.log(house.utilities[0].id);
-
-
-
-    // drag/slide the menu on side when click on rooms
+    // DRAG THE SLIDE-MENU WHEN CLICKED ON ROOMS
     $(document).on('click', '.room', function(){
         var roomId = $(this).attr('id');
         slideRoomPanel(roomId);
@@ -662,17 +442,15 @@ setInterval("automaticLights()", 1000);
         $(".button-panel#"+roomId).toggleClass('slide-active');
     }
 
-    // close slide-panel by clicking on close "x" icon
-    $(document).on("click",".fa.fa-times", function() {
-        // <i class="fa fa-times" id="room'+ roomName +'">
 
+    // CLOSE SLIDE-MENU ON "x" ICON
+    $(document).on("click",".fa.fa-times", function() {
         var closeIconId = $(this).attr('id');
         $(".button-panel#"+closeIconId).toggleClass('slide-active');
     });
 
 
-
-
+    // POP-UP LOGIN FORM ON CLICK EVENT
     $(document).on("click","#login",function() {
         $('#myModalLogin').modal('show');
 
@@ -686,23 +464,25 @@ setInterval("automaticLights()", 1000);
         dictUsers = JSON.parse(localStorage.users);
 
         if (currentUser in dictUsers) {
-            console.log("ok user");
+//            console.log("ok user");
             dictUsersPassword = dictUsers[currentUser]["password"];
+
             if (currentUserPassword == dictUsersPassword) {
                 $('#login').html("Sign Out");
                 $('#login').attr('id', 'sign-out');
                 $('#sign-up').hide();
-                $('.login-section #lblName').text("Hello, " + currentUser);
+                $('.login-section #lblName').text("Hello, " + currentUser + "!");
+                $('.login-section #lblName').css('float','left');
 
-                // var house_current_user = localStorage[current_user];
-                // house = JSON.parse(house_current_user);
+                var house_current_user = localStorage[current_user];
+                house = JSON.parse(house_current_user);
                 reloadHouse(current_user);
             }
         }
 
     });
 
-
+    // SIGN-OUT LOGIN FORM ON CLICK EVENT
     $(document).on("click","#sign-out",function() {
         localStorage.current_user = '';
         current_user = '';
@@ -722,34 +502,24 @@ setInterval("automaticLights()", 1000);
         var currentConsump = 0;
         for (i=0; i<house.utilities.length; i++) {
             totalConsump += Number(house.utilities[i].consumption);
-
             if (house.utilities[i].type == type && house.utilities[i].state == "on") {
             currentConsump  += Number(house.utilities[i].consumption);
             }
-
         }
 
         var statisticsPercentage = Math.floor((currentConsump/totalConsump)*100);
-        //console.log(statisticsPercentage);
-        //console.log("total:" + totalConsump);
-        //console.log("%" + statisticsPercentage);
-
 
         $('#'+type+'-dial .dial').val(statisticsPercentage).trigger('change');
 
     }
 
 
-setInterval(function(){updateStatistics('electricity');}, 1000);
-setInterval(function(){updateStatistics('water');}, 1000);
-setInterval(function(){updateStatistics('gas');}, 1000);
+    setInterval(function(){updateStatistics('electricity');}, 1000);
+    setInterval(function(){updateStatistics('water');}, 1000);
+    setInterval(function(){updateStatistics('gas');}, 1000);
  
 
     function displayStatistics() {
-
-//        for (var i=0; i< house.general_counters[i]; i++) {
-//            $('#statistics').append('<div id="' + house.general_counters[i].type + '-dial"' + '><input type="text" value="75" class="dial" data-width="85px"></div>');
-
 
         for (var i=0; i< house.general_counters.length; i++) {
             type = house.general_counters[i].type;
@@ -781,11 +551,171 @@ setInterval(function(){updateStatistics('gas');}, 1000);
     displayStatistics();
 
 
+    //AUTO-DEMO DAY-NIGHT CYCLE
+    function dayNightCycle() {
+
+        var stepDarken = 0.08;
+        var darkIntensity = Number($('.dayNightCycle').css('opacity'));
+
+        if (timeOfDay <= 12) {
+            timeOfDay++;
+            var opacity = darkIntensity - stepDarken;
+            ($('.dayNightCycle').css('opacity', opacity));
+        }
+
+        if (timeOfDay > 12 && timeOfDay <= 24) {
+            timeOfDay++;
+            var opacity = darkIntensity + stepDarken;
+            ($('.dayNightCycle').css('opacity', opacity));
+        }
+
+        if (timeOfDay == 25) {
+            timeOfDay = 0;
+        }
+
+    timeSetter(timeOfDay);
+
+    }
+
+    var dayNightCycleId;
+
+
+    function timeSetter(time) {
+
+        if (time > 5 && time < 23) {
+        $('#controlPanel').append('<div id="'+'clock'+'"></div>');
+            $('#clock').text(time +' am');
+            //turnLightsOnOff("on");
+        }
+        else{
+            //turnLightsOnOff("off");
+            $('#controlPanel').append('<div id="'+'clock'+'"></div>');
+            $('#clock').text(time +' pm');
+        }
+    }
+
+
+    function automaticLights() {
+        if (timeOfDay == 6) {
+            turnOnthisLight(13);
+        }
+
+        if (timeOfDay == 7) {
+            turnOnthisLight(4);
+        }
+
+        if (timeOfDay == 8) {
+            turnOnthisLight(5);
+        }
+
+        if (timeOfDay == 9) {
+            turnOnthisLight(7);
+        }
+
+         if (timeOfDay == 10) {
+            turnOnthisLight(8);
+        }
+
+        if (timeOfDay == 11) {
+            turnOnthisLight(11);
+        }
+
+        if (timeOfDay == 17) {
+            turnOffthisLight(13);
+        }
+
+        if (timeOfDay == 18) {
+            turnOffthisLight(4);
+        }
+
+        if (timeOfDay == 19) {
+            turnOffthisLight(5);
+        }
+
+        if (timeOfDay == 20) {
+            turnOffthisLight(7);
+        }
+
+         if (timeOfDay == 21) {
+            turnOffthisLight(8);
+        }
+
+        if (timeOfDay == 22) {
+            turnOffthisLight(11);
+        }
+
+    }
+
+
+    function turnOnthisLight(which){
+            house.utilities[which].state = 'on';
+            $("#room"+house.utilities[which].room + " .roomColor").removeClass('darkRoom');
+            $("#room" + house.utilities[which].room + " .fa-lightbulb-o").addClass('animate lightBulbOn');
+    }
+
+    function turnOffthisLight(which){
+            house.utilities[which].state = 'off';
+            $("#room"+house.utilities[which].room + " .roomColor").addClass('darkRoom');
+            $("#room" + house.utilities[which].room + " .fa-lightbulb-o").removeClass('animate lightBulbOn');
+    }
+
+    setInterval("automaticLights()", 1000);
+    var demo = 'off';
+
+
+
+    // DAY-NIGHT-CYCLE CLICK EVENT
+    $('#auto-demo').click( function(){
+
+        $('.dayNightCycle').css('background-color', '#00074C');
+
+        if (demo == "off") {
+            dayNightCycleId = setInterval('dayNightCycle()', 2000);
+            demo = "on";
+            var oImg = document.createElement("img");
+            oImg.setAttribute('src', 'img/clock.gif');
+            oImg.setAttribute('height', '100px');
+            oImg.setAttribute('width', '100px');
+            $('#controlPanel').append('<div id="' + 'clockImage' + '"></div>');
+            $('#clockImage').html(oImg);
+            $(this).html('Stop Demo');
+        }
+        else {
+            demo = "off";
+            clearInterval(dayNightCycleId);
+            $('.dayNightCycle').css('background-color', 'white');
+            $('#clockImage').html('');
+            $('#clock').html('');
+            $(this).html('Start Demo');
+        }
+    });
+
+
+
+    // ANIMATION DRIVE CAR
+    $("#green-car2").click(function () {
+        $(this).animate({
+            left: '1800px'}, "slow");
+
+    });
+
+    // SOUNDS ON CLICK
+    $(document).on("click",".playSound", function() {
+        var myObjectId = $(this).attr('id');
+        console.log('#'+myObjectId+'-sound');
+        $('#'+myObjectId+'-sound')[0].play();
+
+    });
+
+    // DRAGGABLE OBJECTS
+    $('#green-car1').draggable();
+    $('#tesla').draggable();
+    $('.tree').draggable();
+
 
 
 </script>
 
-   
 
 </body>
 </html>

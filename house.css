@@ -13,20 +13,6 @@ body {
     /*background-color: #E8E8E8 !important;*/
 }
 
-/*.container {*/
-    /*background-color: #ffffff;*/
-/*}*/
-
-
-/*.room .light {*/
-	/*height: 100%;*/
-	/*width: 100%;*/
-	/*top: 0;*/
-	/*left: 0;*/
-	/*background: yellow;*/
-	/*opacity: .5;*/
-	/*}*/
-
 
 /* PAGE HEADER*/
 
@@ -69,14 +55,12 @@ body {
     padding: 5px;
 }
 
-
 #sign-up {
     color: slategrey;
     border: 1px solid slategrey;
     float: right;
     margin: 20px 100px 0 0;
 }
-
 
 #sign-up:hover {
     background-color: slategrey;
@@ -96,8 +80,21 @@ body {
     color: white;
 }
 
+
+#sign-out {
+    color:#b0b920;
+    border: 1px solid #b0b920;
+
+}
+
+#sign-out:hover {
+    background-color: #b0b920;
+    opacity: 0.8;
+    color: white;
+}
+
+
 #auto-demo {
-    /*background-color: lightseagreen;*/
     border: 1px solid mediumseagreen;
     color: mediumseagreen;
     transition: all .3s;
@@ -136,9 +133,12 @@ body {
     display: inline-block;
 }
 
+.login-section #lblName {
+    text-transform:uppercase;
+    margin-top: 5px;
+}
 
 /*SECTION HOUSE and BUTTONS*/
-
 
 .dayNightCycle {
     position: absolute;
@@ -151,20 +151,16 @@ body {
     transition: all 1s;
 }
 
-
 .stayLighted {
     width: 100%;
     height: 100%;
     background: yellow;
 	opacity: 0.5;
-
 }
-
 
 .room {
     background-repeat: no-repeat;
 }
-
 
 .darkRoom {
 	background-color: blue;
@@ -177,7 +173,6 @@ body {
 }
 
 .btnOnOff {
-	/*/*display: inline-block;*/
 	margin-top: 20px;
 }
 
@@ -209,7 +204,6 @@ i.animate {
         /*color: #ffff00;*/
     }
 }
-
 
 .lightBulb {
     position: absolute;
@@ -251,8 +245,7 @@ i.animate {
     color:#20ACCC;
 }
 
-/*button-panel*/
-
+/*BUTTON-PANEL*/
 
 .button-panel {
     position: fixed;
@@ -354,8 +347,6 @@ i.animate {
 
 /*POP-UP MENU*/
 
-
-
 .modal-content {
     background-color:#E8E8E8 ;
 }
@@ -386,11 +377,6 @@ i.animate {
 .inputPopup label, .inputPopup input {
     display: inline-block;
 }
-
-
-/*.inputPopup label#firstName {*/
-    /*margin-top: 60px;*/
-/*}*/
 
 .inputPopup #password {
     margin-bottom: 60px;
@@ -434,22 +420,17 @@ i.animate {
     width: 100vw;
     height: 190px;
     position: relative;
-    top: 950px;
+    top: 1050px;
     background: url("http://i.imgur.com/jNvvXRU.jpg");
     opacity: 0.9;
 }
 
-#green-car {
+#green-car1 {
     /*width: 100px;*/
     /*height: 100px;*/
     position: absolute;
     left:560px;
     top: 840px;
-
-}
-
-#house {
-
 }
 
 #tree-artistic {
@@ -494,52 +475,13 @@ i.animate {
     top: 900px;
 }
 
-#tesla {
+#green-car2 {
    position: absolute;
    width: 300px;
    height:300px;
    /*background-image: url("http://www.h2it.org/wp-content/uploads/2013/04/incentivi-veicoli-verdi.png");*/
-   transition: all 1s;
+   transition: all 3s;
    left: 0;
 }
 
-
-/*.driveaway {*/
-      /*right: -200px !important;*/
-/*}*/
-
-
-/*}*/
-
-/*#house_image {*/
-    /*width: 300px;*/
-    /*height: auto;
-    background-position: --203px --111px;
-    width: 843px;
-    height: 591px;
-}
-*/
-
-
-/*USING SPRITES IMAGES*/
-/*.image_bedroom, .image_bathroom {
-    background-image: url('../Apart3.jpeg');
-    background-repeat: no-repeat;
-}
-
-
-.image_bedroom {
-    width: 400px;
-    height: 400px;
-    background-position: 0 0;
-
-}
-
-
-.image_bathroom {
-    width: 100px;
-    height: 100px;
-    background-position: -410px 0;
-
-}*/
 
