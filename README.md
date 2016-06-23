@@ -7,7 +7,7 @@ The project simulates a standard household with rooms equipped with classic util
 electricity, natural gas, water. The user is able to manipulate the consumption
 of these utilities by turning on and off household devices such as light switches, 
 watertaps, heating systems, kitchen cooking appliances. 
-The system provides measurement meters/d for each type of utility, that update 
+The system provides measurement meters for each type of utility, that update 
 and display the numbers of current and total consumption. The user can play with turning 
 devices on and off in different rooms at the same time.
 
