@@ -12,5 +12,5 @@ and display the numbers of current and total consumption. The user can play with
 devices on and off in different rooms at the same time.
 
 The system also integrates statistics about the current consuption of each utility compared to 
-the full capacity of consumption of the household.
+the full consumption capacity of the household.
 
